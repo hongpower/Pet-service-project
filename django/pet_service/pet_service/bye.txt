@@ -1,3 +1,4 @@
 bye
+i am 빌런
 i want to sleep
-django
+i hate django soso much

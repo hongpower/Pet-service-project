@@ -1,5 +1,3 @@
 새로운 내용을 넣어봅시다~!
 bye
 i am 빌런
-i want to sleep
-i hate django soso much

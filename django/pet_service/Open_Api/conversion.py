@@ -1,7 +1,8 @@
 import requests
 import json
 # rest api
-api_key = 'b8b58dd6490543a58e8ab1ea5352a75f'
+# api_key = 'b8b58dd6490543a58e8ab1ea5352a75f'
+api_key = '98191902da3e6ba292c5e664bae4ba35'
 # 주소로 좌표변환
 def addr_to_lat_lon(addr):
     url = 'https://dapi.kakao.com/v2/local/search/address.json?query={address}'.format(address=addr)

@@ -49,6 +49,7 @@
             //console.log(gu_id)
             //console.log(bs_id)
             getInfo(gu_id, bs_id)
+            getMap(gu_id, bs_id)
 
         })
     })
@@ -87,8 +88,20 @@
                 }
             }
         })
-    }
 
+    }
+    function getMap(gu_id, bs_id){
+        $.ajax({
+            url:'get_map',
+            data: {'bs_id':bs_id,'gu_id':gu_id},
+            dataType: 'html',
+            success: function(msg){
+                $('#map').empty()
+                $('#map').append(msg)
+            }
+        })
+
+    }
 
     </script>
 </head>
@@ -100,6 +113,9 @@
         <select name="please" id="gu">
             <option value="0">구 선택</option>
         </select>
+    </div>
+
+    <div id = 'map'>
     </div>
 
     <table id="result">

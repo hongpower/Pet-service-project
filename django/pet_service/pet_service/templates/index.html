@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(function(){
+        $.ajax({
+            type:'get'
+            url: "./pet_cafe.json",
+            dataType: 'json',
+            success: function(msg){
+                var msgKeys = Object.keys(msg)
+
+                var $gu = $("#gu")
+                for (var i = 0; i < msgKeys.length; i++){
+                    $gu.append($("<option>").val(msgKeys[i]).text(msg[msgKeys[i]]))
+                }
+            }
+        })
+    })
+
+    </script>
+</head>
+<body>
+
+    <h1>내 주변 서비스 확인하기</h1>
+
+        <div id="wrapper">
+        <select id="gu">
+            <option value="0">구 선택</option>
+        </select>
+    </div>
+
+    <table id="result">
+
+    </table>
+
+</body>
+</html>

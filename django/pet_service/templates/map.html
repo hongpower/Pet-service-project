@@ -16,7 +16,14 @@
         {{ my_loc|safe }}
 
     </div>
-    <input type="checkbox" value = '강남구'>강남구
-    <input type="checkbox" value = 'pet_cafe' name = '애견카페'>애견카페
+    
+    <form action="."method="post">{% csrf_token %}
+        <input type="checkbox" value = '강남구' name = '강남구'>구로구
+        <input type="checkbox" value = 'pet_cafe' name = 'pet_cafe'>애견카페
+        <input type="submit" value="check">조회
+
+    </form>
+
+
 </body>
 </html>

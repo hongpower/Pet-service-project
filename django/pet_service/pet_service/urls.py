@@ -21,4 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('get_gu/', views.getGu, name='getGu'),
+    path('get_business/', views.getBusiness),
+    path('get_info/', views.getInfo),
+    path('index2/', views.index2),
+    path('map/',views.Map),
+    path('busan/',views.Busan),
 ]

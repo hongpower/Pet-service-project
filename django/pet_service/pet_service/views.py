@@ -17,14 +17,14 @@ def index(request):
 
 
 def getGu(request):
-    with open("C:\workspaces\project_visualization\django\pet_service\data\gulist.json", 'r', encoding="utf-8") as f:
+    with open(".\data\gulist.json", 'r', encoding="utf-8") as f:
         dict_gus = json.load(f)
     # pprint.pprint(dict_gus)
     return JsonResponse(dict_gus)
 
 
 def getBusiness(request):
-    with open("C:\workspaces\project_visualization\django\pet_service\data/business.json", 'r', encoding="utf-8") as f:
+    with open(".\data/business.json", 'r', encoding="utf-8") as f:
         dict_business = json.load(f)
     # pprint.pprint(dict_business)
     return JsonResponse(dict_business)
@@ -35,7 +35,7 @@ def getInfo(request):
     gu_name = request.GET['gu_id']
     pprint.pprint(gu_name)
     file_name = request.GET['bs_id']
-    with open(f"C:\workspaces\project_visualization\django\pet_service\data\pet_{file_name}", 'r',
+    with open(f".\data\pet_{file_name}", 'r',
               encoding="utf-8") as f:
         dict_info = json.load(f)
     final_dict = dict()
@@ -104,3 +104,5 @@ def Map(request):
     pprint.pprint(final_dict)
     return HttpResponse(maps)
 
+def practice(request):
+    return render(request, 'menu_practice.html')

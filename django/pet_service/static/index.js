@@ -63,10 +63,18 @@ function getInfo(gu_id, bs_id){
                     console.log(infolist)
                     var head_text = Object.keys(infolist[i])
                     var $tr = $("<tr>")
-                    $tr.append($("<th>").text('상업명'))
-                    $tr.append($("<th>").text('별점'))
-                    $tr.append($("<th>").text('주소'))
-                    $table.append($tr)
+                    if (head_text[0] == '상업명' || head_text[0] == '공원명') {
+                        for (var i = 0 ; i < head_text.length ; i++){
+                            $tr.append($("<th>").text(head_text[i]))
+                        }
+                        $table.append($tr)
+                    }
+                    else{
+                        $tr.append($("<th>").text('상업명'))
+                        $tr.append($("<th>").text('별점'))
+                        $tr.append($("<th>").text('주소'))
+                        $table.append($tr)
+                    }
                 }
                 for (var i=0; i<infolist.length ; i++){
                     var $tr = $("<tr>")

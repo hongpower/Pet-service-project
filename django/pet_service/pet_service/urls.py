@@ -28,6 +28,8 @@ urlpatterns = [
     path('score/', views.score),
     path('getscore/', views.getScore),
     path('getpie/', views.getPie),
+    path('Geo/',views.Geo),
+    path("Geo/get_myloc/",views.my_loc),
     # path(),
     # path('draw_map/',views.drawMap),
     # path('get_map/', views.),

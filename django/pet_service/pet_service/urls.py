@@ -25,6 +25,10 @@ urlpatterns = [
     path('get_info/', views.getInfo),
     path('index2/', views.index2),
     path('get_map/',views.Map),
+    path('score/', views.score),
+    path('getscore/', views.getScore),
+    path('getpie/', views.getPie),
+    # path(),
     # path('draw_map/',views.drawMap),
     # path('get_map/', views.),
 ]

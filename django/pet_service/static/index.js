@@ -58,6 +58,7 @@ function getInfo(gu_id, bs_id){
                 var $table = $('#result')
 
                 // column 생성
+                console.log(infolist[0])
                 for (var i=0; i <1; i++){
                     console.log(infolist)
                     var head_text = Object.keys(infolist[i])

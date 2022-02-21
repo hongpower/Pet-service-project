@@ -16,7 +16,7 @@ import io
 import urllib, base64
 from io import BytesIO
 import base64
-from .practice import createMap
+from .practice import createMap,drawgraph
 # from Open_Api.conversion import addr_to_lat_lon
 
 warnings.filterwarnings('ignore')
@@ -210,17 +210,19 @@ def Location_Park(input_file,input_gu):
     # print(city_park[['위도','경도']])
 
     for i in park_name:
+        print(i)
         park_etc = city_park[city_park.공원명 == i]
-        park_x = park_etc.위도.values
-        # print(park_x)
-        park_etc = city_park[city_park.공원명 == i]
-        park_y = park_etc.경도.values
-        # print(park_y)
+        park_addrss = park_etc.소재지지번주소.values[0]
+        # print(park_addrss)
+        try:
+            local = addr_to_lat_lon(park_addrss)
+        except IndexError as e:
+            pass
         park_etc = city_park[city_park.공원명 == i]
         park_width = park_etc.공원면적.values
         # print(park_width)
-        folium.Marker([park_x, park_y], popup=folium.Popup(i + f' 공원면적:{park_width}', max_width=400),
-                      icon=folium.Icon(icon="tree",prefix='fa',color='green')).add_to(center_loc)
+        folium.Marker([local[0], local[1]], popup=folium.Popup(i + f' 공원면적:{park_width}', max_width=200),
+                      icon=folium.Icon(icon="tree", prefix='fa', color='green')).add_to(center_loc)
     # center_loc.save('pratice.html')
 
     return center_loc
@@ -372,3 +374,8 @@ def getPie(request):
     piedata = img.getvalue()
     pieb64 = base64.b64encode(piedata).decode()
     return HttpResponse(pieb64)
+
+def getGraph(request):
+    graph = drawgraph()
+
+    return render(request,'score.html',{'msg':graph})

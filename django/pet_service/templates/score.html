@@ -5,11 +5,11 @@
     <title>Title</title>
     {% load static %}
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../static/score.js"></script>
+    <script src="{% static 'score.js' %}"></script>
 </head>
 <body>
     <div class="mapgraph">
-
+        {{ my_loc|safe }}
     </div>
     <div class="container">
 <!--        <img src="{% static 'img/iamhungry.png' %}" alt="이게 보이면 아니되어요">-->
@@ -42,6 +42,10 @@
         파이 그래프 보려면 클릭!
     </div>
     <div id="pie">
+    </div>
+
+    <div id="folliummap">
+        {% include "folliummap.html" %}
     </div>
 
 </body>

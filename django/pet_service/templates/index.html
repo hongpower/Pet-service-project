@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style_index.css' %}" type="text/css" media="screen">
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../static/index.js">
-    </script>
-    <link rel="stylesheet" href="../static/index.css">
+    <script src="{% static 'index.js' %}"></script>
 </head>
 <body>
 
     <h1>내 주변 서비스 확인하기</h1>
-
-    <div id="wrapper">
-        <select name="please" id="gu">
-            <option value="0">구 선택</option>
-        </select>
-    </div>
+    <label class="custom-select">
+        <div id="wrapper">
+            <select name="please" id="gu">
+                <option value="0">구 선택</option>
+            </select>
+        </div>
+    </label>
 
     <div id = 'map'>
     </div>

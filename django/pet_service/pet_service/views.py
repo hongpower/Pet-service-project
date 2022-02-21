@@ -16,10 +16,13 @@ import io
 import urllib, base64
 from io import BytesIO
 import base64
+from .practice import createMap
 # from Open_Api.conversion import addr_to_lat_lon
 
 warnings.filterwarnings('ignore')
 
+def mainpage(request):
+    return render(request, 'main.html')
 
 def index(request):
     return render(request, 'index.html')
@@ -28,21 +31,17 @@ def index(request):
 def getGu(request):
     with open(".\data\gulist.json", 'r', encoding="utf-8") as f:
         dict_gus = json.load(f)
-    # pprint.pprint(dict_gus)
     return JsonResponse(dict_gus)
 
 
 def getBusiness(request):
     with open(".\data/business.json", 'r', encoding="utf-8") as f:
         dict_business = json.load(f)
-    # pprint.pprint(dict_business)
     return JsonResponse(dict_business)
 
 
 def getInfo(request):
-    pprint.pprint('!!!!!!!!!!!!!!!')
     gu_name = request.GET['gu_id']
-    pprint.pprint(gu_name)
     file_name = request.GET['bs_id']
     if file_name == 'hospital.csv' or file_name == 'medical.csv':
         hospital_data = pd.read_csv(f'./data/pet_{file_name}', encoding='cp949')
@@ -86,7 +85,6 @@ def getInfo(request):
             dict_info = json.load(f)
         final_dict = dict()
         final_dict['info'] = dict_info[gu_name]
-        pprint.pprint(final_dict)
     return JsonResponse(final_dict)
 
 
@@ -98,12 +96,8 @@ def Geo(request):
     return render(request,'geo.html')
 
 def my_loc(request):
-    pprint.pprint('!!!!!!!!!!!!!!!')
     lat = request.GET['lat']
     lon = request.GET['lon']
-    print(lat)
-    print(lon)
-    # lat_lon_to_addr()
     my_loc = lat_lon_to_addr(lon,lat)
     gu_name = my_loc.split()[1]
     return HttpResponse(gu_name)
@@ -155,13 +149,11 @@ def Location_Map_Json(input_file,input_gu):
     center_loc = folium.Map(location=[center[0],center[1]],zoom_start=14)
     # print(total_json)
     gu_data = total_json[input_gu]
-    print(gu_data)
     # local = []
     for gu in gu_data:
         gu_address = gu["address"]
-        print(gu_address)
         local = addr_to_lat_lon(gu_address)
-        folium.Marker([local[0], local[1]], popup=folium.Popup(gu['s_name'], max_width=100),
+        folium.Marker([local[0], local[1]], popup=folium.Popup(gu['s_name'], max_width=400),
                       icon=folium.Icon(icon=icon,prefix=prefix,color=color)).add_to(center_loc)
 
     # center_loc.save('map.html')
@@ -187,14 +179,13 @@ def Location_Medical_CSV(input_file ,input_gu):
     center_loc = folium.Map(location=[center[0], center[1]], zoom_start=12)
     #
     for i in hospital_local:
-        print(i)
         try:
             local = addr_to_lat_lon(i)
         except IndexError as e:
             pass
         doro_add = hospital_data[hospital_data.도로명전체주소 == i]
         hosp_name = doro_add['사업장명'].values
-        folium.Marker([local[0], local[1]], popup=folium.Popup(hosp_name[0], max_width=100),
+        folium.Marker([local[0], local[1]], popup=folium.Popup(hosp_name[0], max_width=400),
                       icon=folium.Icon(icon=icon,prefix='fa',color='red')).add_to(center_loc)
 
     # center_loc.save('pratice.html')
@@ -219,7 +210,6 @@ def Location_Park(input_file,input_gu):
     # print(city_park[['위도','경도']])
 
     for i in park_name:
-        print(i)
         park_etc = city_park[city_park.공원명 == i]
         park_x = park_etc.위도.values
         # print(park_x)
@@ -229,7 +219,7 @@ def Location_Park(input_file,input_gu):
         park_etc = city_park[city_park.공원명 == i]
         park_width = park_etc.공원면적.values
         # print(park_width)
-        folium.Marker([park_x, park_y], popup=folium.Popup(i + f' 공원면적:{park_width}', max_width=200),
+        folium.Marker([park_x, park_y], popup=folium.Popup(i + f' 공원면적:{park_width}', max_width=400),
                       icon=folium.Icon(icon="tree",prefix='fa',color='green')).add_to(center_loc)
     # center_loc.save('pratice.html')
 
@@ -258,14 +248,12 @@ def drawMap(request):
     file_name = request.GET['business_name']
     gu_name = '강남구'
     my_loc = Location_Map_Json(file_name, gu_name)
-    # maphtml은 무엇인가?
     return my_loc
 
 
 def Map(request):
     input_file = request.GET['bs_id']
     input_gu = request.GET['gu_id']
-    print(input_file)
     if input_file == 'hospital.csv' or input_file == 'medical.csv':
         my_loc = Location_Medical_CSV(input_file,input_gu)
     elif input_file == 'city_park.csv':
@@ -277,14 +265,15 @@ def Map(request):
     maps = my_loc._repr_html_()
     final_dict = {'my_loc' : maps}
 
-    pprint.pprint(final_dict)
     return HttpResponse(maps)
 
 def practice(request):
     return render(request, 'menu_practice.html')
 
 def score(request):
-    return render(request, 'score.html')
+    map = createMap()
+    my_loc = map._repr_html_()
+    return render(request, 'score.html', {'my_loc':my_loc})
 
 def getScore(request):
     file_name = request.GET['business_name']

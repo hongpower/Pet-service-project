@@ -1,6 +1,6 @@
 $(function(){
     $.ajax({
-        url: "get_gu/",
+        url: "/get_gu/",
         dataType: 'json',
         success: function(msg){
             var msgKeys = Object.keys(msg)
@@ -17,7 +17,7 @@ $(function(){
     // select의 개수가 1개라면
         if ($('select').length == 1){
             $.ajax({
-                url: 'get_business/',
+                url: '/get_business/',
                 dataType: 'json',
                 success: function(msg){
                     var msgKeys = Object.keys(msg)
@@ -49,7 +49,7 @@ $(function(){
 
 function getInfo(gu_id, bs_id){
     $.ajax({
-        url:'get_info',
+        url:'/get_info/',
         data: {'bs_id':bs_id,'gu_id':gu_id},
         dataType: 'json',
         success: function(msg){
@@ -94,7 +94,7 @@ function getInfo(gu_id, bs_id){
 }
 function getMap(gu_id, bs_id){
     $.ajax({
-        url:'get_map',
+        url:'/get_map/',
         data: {'bs_id':bs_id,'gu_id':gu_id},
         dataType: 'html',
         success: function(msg){

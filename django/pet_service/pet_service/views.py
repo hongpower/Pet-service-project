@@ -16,7 +16,7 @@ import io
 import urllib, base64
 from io import BytesIO
 import base64
-from .practice import createMap,drawgraph
+from .practice import createMap,drawgraph, drawpie
 # from Open_Api.conversion import addr_to_lat_lon
 
 warnings.filterwarnings('ignore')
@@ -275,7 +275,11 @@ def practice(request):
 def score(request):
     map = createMap()
     my_loc = map._repr_html_()
-    return render(request, 'score.html', {'my_loc':my_loc})
+    graph = drawgraph()
+    uri = urllib.parse.quote(graph)
+    pie = drawpie()
+    uri2 = urllib.parse.quote(pie)
+    return render(request, 'score.html', {'my_loc':my_loc, 'my_graph':uri, 'my_pie':uri2})
 
 def getScore(request):
     file_name = request.GET['business_name']
@@ -374,8 +378,3 @@ def getPie(request):
     piedata = img.getvalue()
     pieb64 = base64.b64encode(piedata).decode()
     return HttpResponse(pieb64)
-
-def getGraph(request):
-    graph = drawgraph()
-
-    return render(request,'score.html',{'msg':graph})

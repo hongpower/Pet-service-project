@@ -7,6 +7,8 @@ import numpy as np
 import warnings
 import folium
 import requests
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
@@ -282,47 +284,7 @@ def practice(request):
     return render(request, 'menu_practice.html')
 
 def score(request):
-    # if request.method =='GET':
-        return render(request, 'score.html')
-    # else:
-    #     plt.rcParams['font.family'] = 'Malgun Gothic'
-    #
-    #     file_name = request.POST['business']
-    #     if file_name == 'pet_city_park' or file_name == 'pet_hospital' or file_name == 'pet_medical':
-    #         pass
-    #     else:
-    #         with open(f'.\data\{file_name}.json', 'r', encoding='utf-8') as f:
-    #             pet_business_info = json.load(f)
-    #         # print(petcafe_json)
-    #         gus = pet_business_info.keys()
-    #         # print(gus)
-    #         cnt_dict = {}
-    #         for gu in gus:
-    #             cnt = len(pet_business_info[gu])
-    #             cnt_dict[gu] = cnt
-    #         # print(cnt_dict)
-    #         tot = sum(cnt_dict.values())
-    #         avg = tot / len(cnt_dict)
-    #         df = pd.DataFrame.from_dict([cnt_dict])
-    #         # print(df)
-    #         # b.cla()
-    #         plt.cla()
-    #         b = sns.barplot(data=df, color='blue')
-    #         # b.cla()
-    #         b.axhline(y=avg, color='red', linestyle='dashed', label="평균")
-    #         b.set_xticklabels(b.get_xticklabels(), rotation=45)
-    #         # b.set_title('애견 공원 갯수')
-    #
-    #         buf = io.BytesIO()
-    #         b_png = b.get_figure()
-    #
-    #         # graph를 dtring buffer로 바꾼 후에 64비트 코드로 바꾸고 이미지로
-    #         b_png.savefig(buf, formant='png')
-    #         buf.seek(0)
-    #         string = base64.b64encode(buf.read())
-    #         uri = urllib.parse.quote(string)
-    #
-    #         return render(request, 'score.html', {'data': uri})
+    return render(request, 'score.html')
 
 def getScore(request):
     file_name = request.GET['business_name']
@@ -345,14 +307,25 @@ def getScore(request):
         tot = sum(cnt_dict.values())
         avg = tot / len(cnt_dict)
         df_bs = pd.DataFrame.from_dict([cnt_dict])
+        plt.cla()
+
+        # a 리셋되도록 넣어놈
+        a = file_name
+
         a = sns.barplot(data=df_bs, color='blue')
         a.set_title(title)
         a.axhline(y=avg, color='red', linestyle='dashed', label="평균")
         a.set_xticklabels(a.get_xticklabels(), rotation=45)
+
+        buf = io.BytesIO()
         a_png = a.get_figure()
-        a_png.savefig(f'./static/img/graph{file_name}.png')
-        imgurl = f"/static/img/graph{file_name}.png"
-        return HttpResponse(imgurl)
+        a_png.savefig(buf, format='png')
+        buf.seek(0)
+
+        data = buf.getvalue()
+        b64 = base64.b64encode(data).decode()
+        return HttpResponse(b64)
+
     else:
         with open(f'.\data\{file_name}.json', 'r', encoding='utf-8') as f:
             pet_business_info = json.load(f)
@@ -371,42 +344,42 @@ def getScore(request):
         # b.cla()
         plt.cla()
         b = sns.barplot(data=df, color='blue')
-        # b.cla()
         b.axhline(y=avg, color='red', linestyle='dashed', label="평균")
         b.set_xticklabels(b.get_xticklabels(), rotation=45)
         # b.set_title('애견 공원 갯수')
 
         # graph를 dtring buffer로 바꾼 후에 64비트 코드로 바꾸고 이미지로
-        # buf = io.BytesIO()
+        buf = io.BytesIO()
         b_png = b.get_figure()
-        print(os.path.isfile(f'./static/img/graph{file_name}.png'))
-        b_png.savefig(f'./static/img/graph{file_name}.png')
-        # b_png.savefig(buf, formant='png')
-        # buf.seek(0)
-        # string = base64.b64encode(buf.read())
-        # uri = urllib.parse.quote(string)
-        imgurl = f"/static/img/graph{file_name}.png"
-        return HttpResponse(imgurl)
+        b_png.savefig(buf, format='png')
+        buf.seek(0)
+
+        data = buf.getvalue()
+        b64 = base64.b64encode(data).decode()
+        return HttpResponse(b64)
 
 def getPie(request):
-    ## 여기 미완성입니다!
+    ## 파이 그래프 생성 함수:
     df = pd.read_csv(".\data\whole_merged_data2.csv", sep=",")
+    gus = df['지역명'].tolist()
+    parks = df['공원 개수'].tolist()
+    cnt_dict_park = dict(zip(gus, parks))
     df_park = pd.DataFrame.from_dict([cnt_dict_park])
     df_park_sort = df_park.sort_values(by=0, axis=1, ascending=False)
     gus_sort = df_park_sort.columns.tolist()
 
     parks_sort = df_park_sort.T[0].tolist()
-
+    plt.cla()
     colors = sns.color_palette('pastel')
-    pie = plt.pie(x=parks_sort, labels=gus_sort, colors=colors, autopct='%0.0f%%')
+    plt.pie(x=parks_sort, labels=gus_sort, colors=colors, autopct='%0.0f%%')
 
-    buf = io.BytesIO()
-    pie_png = pie.get_figure()
+    ## 이미지 html로 변환:
+    # graph를 메모리에 저장:
+    img = io.BytesIO() # 메모리에 (디스크 말고) file-like object를 생성성
+    plt.savefig(img, format='png') # file-like object로 이미지 save
+    img.seek(0) # file-like object의 beginning으로 이동 to read it later
 
-    # graph를 dtring buffer로 바꾼 후에 64비트 코드로 바꾸고 이미지로
-    pie.savefig(buf, formant='png')
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
-    uri = urllib.parse.quote(string)
-
-    return render(request, 'score.html', {'data': uri})
+    # PNG data를 base 64 string으로 변환
+    piedata = img.getvalue()
+    pieb64 = base64.b64encode(piedata).decode()
+    return HttpResponse(pieb64)

@@ -104,3 +104,4 @@ function getMap(gu_id, bs_id){
     })
 
 }
+

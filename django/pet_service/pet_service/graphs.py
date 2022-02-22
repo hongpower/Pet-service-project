@@ -7,7 +7,7 @@ import io
 import urllib, base64
 from io import BytesIO
 import seaborn as sns
-def drawbargraph(file_name):
+def drawbargraph(file_name, user_loc):
     file_name = file_name
     plt.rcParams['font.family'] = 'Malgun Gothic'
 
@@ -33,7 +33,16 @@ def drawbargraph(file_name):
         # a 리셋되도록 넣어놈
         a = file_name
         plt.figure()
-        a = sns.barplot(data=df_bs, color='blue')
+        # lst: df의 컬럼명 list
+        lst = list(df_bs.columns)
+        # bs_index : 사용자 구(ex 강남구)의 lst내 인덱스
+        bs_index = lst.index(user_loc)
+        # 가장 큰 값
+        maxCol = max(list(df_bs.loc[0]))
+        clrs = ['grey' if x< maxCol else 'blue' for x in df_bs.loc[0]]
+        # 사용자의 구는 초록색으로
+        clrs[bs_index] = 'green'
+        a = sns.barplot(data=df_bs, palette=clrs)
         a.set_title(title)
         a.axhline(y=avg, color='red', linestyle='dashed', label="평균")
         a.set_xticklabels(a.get_xticklabels(), rotation=45)
@@ -69,7 +78,12 @@ def drawbargraph(file_name):
         title_dict = dict(zip(bs_id_lst, title_lst))
         plt.cla()
         plt.figure()
-        b = sns.barplot(data=df, color='blue')
+        lst = list(df.columns)
+        bs_index = lst.index(user_loc)
+        maxCol = max(list(df.loc[0]))
+        clrs = ['grey' if x< maxCol else 'blue' for x in df.loc[0]]
+        clrs[bs_index] = 'green'
+        b = sns.barplot(data=df, palette=clrs)
         b.axhline(y=avg, color='red', linestyle='dashed', label="평균")
         b.set_xticklabels(b.get_xticklabels(), rotation=45)
         b.set_title(title_dict[file_name+'.json']+' 개수')
@@ -154,11 +168,24 @@ def drawpie():
 
     parks_sort = df_park_sort.T[0].tolist()
     # plt.cla()
-    plt.figure()
-    fig, ax = plt.subplots()
-    colors = sns.color_palette('pastel')
-    ax.pie(x=parks_sort, labels=gus_sort, colors=colors, autopct='%0.0f%%')
-    ax.set_title('공원 개수 구별 현황')
+    # figsize(가로길이, 세로길이)
+    plt.figure(figsize=(15,12))
+    fig, ax = plt.subplots(figsize=(13,10))
+    colors = sns.color_palette('Set3',12)
+    explode = [0.18 for _ in range(len(gus))]
+    wedgeprops = {'width' : 0.65, 'edgecolor': 'black', 'linewidth': 1}
+    ax.pie(x=parks_sort,
+           labels=gus_sort,
+           colors=colors,
+           autopct='%0.00f%%',
+           explode=explode,
+           shadow=False,
+           wedgeprops=wedgeprops,
+           textprops={'fontsize':10},
+           labeldistance=1.1
+           )
+    ax.set_title('공원 개수 구별 현황', pad=35, fontsize=20)
+    plt.legend(gus_sort,title='ingredients',bbox_to_anchor=(1.27,1))
     # get current figure
     fig2 = plt.gcf()
     buf = io.BytesIO()

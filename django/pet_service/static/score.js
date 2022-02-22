@@ -13,7 +13,8 @@ $(function(){
     }
     $(".bs").click(function(){
         business_name = $(this).attr('id')
-        getbargraph(business_name)
+        user_loc = $('#user_loc').text()
+        getbargraph(business_name, user_loc)
     })
 
 })
@@ -27,10 +28,10 @@ function get_myloc(lat, lon){
         }
     })
 }
-function getbargraph(business_name){
+function getbargraph(business_name, user_loc){
     $.ajax({
         url:'/getbargraph/',
-        data: {'business_name':business_name},
+        data: {'business_name':business_name,'user_loc':user_loc},
         dataType:'html',
         cache: false,
         success: function(msg){

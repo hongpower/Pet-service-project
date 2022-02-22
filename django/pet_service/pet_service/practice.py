@@ -8,7 +8,7 @@ from io import BytesIO
 import seaborn as sns
 
 def createMap():
-    df = pd.read_csv('./scores.csv')
+    df = pd.read_csv('./score.csv')
     geo_path = './seoul_json.json'
     geo_str = json.load(open(geo_path, encoding='utf-8'))
     df=df.set_index('id')
@@ -45,18 +45,23 @@ def drawgraph():
     diner = json_json['together_diner.json']
     # plt.cla()
     plt.figure()
-    ax = sns.barplot(data=json_json,x=local,y=cafe,color='r',alpha = 0.3,label='cafe')
-    ax = sns.barplot(data=json_json,x=local,y=together,color = 'b',alpha=0.3,label='together_cafe')
-    ax = sns.barplot(data=json_json,x=local,y=diner,color = 'g',alpha=0.3,label='diner')
+    fig, ax = plt.subplots()
+    width = 0.35
+    # ax = plt.bar(x=local, height=cafe, color='r', alpha=0.3, label='cafe', stacked=True)
+    ax.bar(x=local, height=cafe, color='r', alpha=0.3, label='cafe')
+    ax.bar(x=local, height=together, bottom=cafe, color='b', alpha=0.3, label='together_cafeeee')
+    ax.bar(x=local, height=diner, bottom=cafe+together, color='g', alpha=0.3, label='diner')
 
-    plt.legend(loc = 'upper right')
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
-    ax.set_ylabel("Count", fontsize = 20)
-    plt.xlim(-1,25)
+    plt.legend(loc='upper right')
+    plt.xticks(rotation=45)
+    plt.ylabel("Count", fontsize=20)
+    plt.xlim(-1, 25)
+    plt.title('동반 가능한 식당 및 카페 구별 현황')
 
+    fig = plt.gcf()
     buf = io.BytesIO()
-    ax_png = ax.get_figure()
-    ax_png.savefig(buf, format='png')
+    # ax_png = ax.get_figure()
+    fig.savefig(buf, format='png')
     buf.seek(0)
     string = base64.b64encode(buf.read())
     
@@ -75,12 +80,14 @@ def drawpie():
     parks_sort = df_park_sort.T[0].tolist()
     # plt.cla()
     plt.figure()
+    fig, ax = plt.subplots()
     colors = sns.color_palette('pastel')
-    plt.pie(x=parks_sort, labels=gus_sort, colors=colors, autopct='%0.0f%%')
-
-    fig = plt.gcf()
+    ax.pie(x=parks_sort, labels=gus_sort, colors=colors, autopct='%0.0f%%')
+    ax.set_title('공원 개수 구별 현황')
+    # get current figure
+    fig2 = plt.gcf()
     buf = io.BytesIO()
-    fig.savefig(buf, format='png')
+    fig2.savefig(buf, format='png')
     buf.seek(0)
     string = base64.b64encode(buf.read())
     return string

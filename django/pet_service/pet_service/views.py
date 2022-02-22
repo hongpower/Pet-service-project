@@ -291,13 +291,13 @@ def getScore(request):
 
         if file_name =='pet_city_park':
             bs = df['공원 개수'].tolist()
-            title = '공원 갯수'
+            title = '공원 개수'
         elif file_name =='pet_medical':
             bs = df['동물약국'].tolist()
-            title = '동물 약국 갯수'
+            title = '동물 약국 개수'
         else:
             bs = df['병원수'].tolist()
-            title = '병원 갯수'
+            title = '병원 개수'
         cnt_dict= dict(zip(gus, bs))
         tot = sum(cnt_dict.values())
         avg = tot / len(cnt_dict)
@@ -306,7 +306,7 @@ def getScore(request):
 
         # a 리셋되도록 넣어놈
         a = file_name
-
+        plt.figure()
         a = sns.barplot(data=df_bs, color='blue')
         a.set_title(title)
         a.axhline(y=avg, color='red', linestyle='dashed', label="평균")
@@ -335,13 +335,18 @@ def getScore(request):
         tot = sum(cnt_dict.values())
         avg = tot / len(cnt_dict)
         df = pd.DataFrame.from_dict([cnt_dict])
-        # print(df)
-        # b.cla()
+        with open(".\data/business.json", 'r', encoding="utf-8") as f:
+            dict_business = json.load(f)
+        title_lst = dict_business['business']
+        bs_id_lst = dict_business['id']
+        bs_id_lst = ['pet_'+bs for bs in bs_id_lst]
+        title_dict = dict(zip(bs_id_lst, title_lst))
         plt.cla()
+        plt.figure()
         b = sns.barplot(data=df, color='blue')
         b.axhline(y=avg, color='red', linestyle='dashed', label="평균")
         b.set_xticklabels(b.get_xticklabels(), rotation=45)
-        # b.set_title('애견 공원 갯수')
+        b.set_title(title_dict[file_name+'.json']+' 개수')
 
         # graph를 dtring buffer로 바꾼 후에 64비트 코드로 바꾸고 이미지로
         buf = io.BytesIO()

@@ -17,7 +17,6 @@ import urllib, base64
 from io import BytesIO
 import base64
 from .practice import createMap,drawgraph, drawpie
-# from Open_Api.conversion import addr_to_lat_lon
 
 warnings.filterwarnings('ignore')
 
@@ -87,9 +86,6 @@ def getInfo(request):
         final_dict['info'] = dict_info[gu_name]
     return JsonResponse(final_dict)
 
-
-def index2(request):
-    return render(request, 'index_jaewon.html')
 
 
 def Geo(request):
@@ -245,13 +241,6 @@ def lat_lon_to_addr(lon,lat):
     result = json.loads(str(requests.get(url, headers=api).text))
     found = result['documents'][0]['address_name']
     return str(found)
-
-def drawMap(request):
-    file_name = request.GET['business_name']
-    gu_name = '강남구'
-    my_loc = Location_Map_Json(file_name, gu_name)
-    return my_loc
-
 
 def Map(request):
     input_file = request.GET['bs_id']

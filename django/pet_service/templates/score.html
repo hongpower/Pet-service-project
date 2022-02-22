@@ -5,9 +5,16 @@
     <title>Title</title>
     {% load static %}
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=edd9d5b2b096d9719de5b3ad246eea5b"></script>
     <script src="{% static 'score.js' %}"></script>
 </head>
 <body>
+    <div>
+        <p>
+            <b>Chrome 브라우저는 https 환경에서만 geolocation을 지원합니다.</b> 참고해주세요.
+        </p>
+        <h1>내 위치 : </h1>
+    </div>
     <div class="mapgraph">
         {{ my_loc|safe }}
     </div>

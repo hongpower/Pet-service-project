@@ -24,11 +24,10 @@ urlpatterns = [
     path('get_gu/', views.getGu, name='getGu'),
     path('get_business/', views.getBusiness),
     path('get_info/', views.getInfo),
-    path('index2/', views.index2),
     path('get_map/',views.Map),
     path('score/', views.score),
     path('getscore/', views.getScore),
     path('getpie/', views.getPie),
     path('Geo/',views.Geo),
-    path("Geo/get_myloc/",views.my_loc),
+    path("score/get_myloc/",views.my_loc),
 ]

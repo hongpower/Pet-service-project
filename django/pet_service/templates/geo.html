@@ -78,7 +78,7 @@ function get_myloc(lat, lon){
         data: {'lat':lat,'lon':lon},
         dataType: 'html',
         success: function(msg){
-            alert(msg)
+            $('h1').append(msg)
         }
     })
 
@@ -87,7 +87,7 @@ function get_myloc(lat, lon){
 </script>
 
 
-    <h1>asdf</h1>
+    <h1>내 위치 : </h1>
     <button onclick="Geo()">Geo</button>
 
 </body>

@@ -24,7 +24,6 @@ urlpatterns = [
     path('get_gu/', views.getGu, name='getGu'),
     path('get_business/', views.getBusiness),
     path('get_info/', views.getInfo),
-    path('index2/', views.index2),
     path('get_map/',views.Map),
     path('score/', views.score),
     path('getscore/', views.getScore),

@@ -26,8 +26,7 @@ urlpatterns = [
     path('get_info/', views.getInfo),
     path('get_map/',views.Map),
     path('score/', views.score),
-    path('getscore/', views.getScore),
-    path('getpie/', views.getPie),
+    path('getbargraph/', views.getBargraph),
     path('Geo/',views.Geo),
     path("score/get_myloc/",views.my_loc),
 ]

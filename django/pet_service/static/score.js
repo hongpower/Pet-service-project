@@ -13,11 +13,9 @@ $(function(){
     }
     $(".bs").click(function(){
         business_name = $(this).attr('id')
-        getScore(business_name)
+        getbargraph(business_name)
     })
-    $("#plz").click(function(){
-        getPie()
-    })
+
 })
 function get_myloc(lat, lon){
     $.ajax({
@@ -29,9 +27,9 @@ function get_myloc(lat, lon){
         }
     })
 }
-function getScore(business_name){
+function getbargraph(business_name){
     $.ajax({
-        url:'/getscore/',
+        url:'/getbargraph/',
         data: {'business_name':business_name},
         dataType:'html',
         cache: false,

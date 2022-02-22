@@ -30,5 +30,5 @@ urlpatterns = [
     path('getscore/', views.getScore),
     path('getpie/', views.getPie),
     path('Geo/',views.Geo),
-    path("Geo/get_myloc/",views.my_loc),
+    path("score/get_myloc/",views.my_loc),
 ]

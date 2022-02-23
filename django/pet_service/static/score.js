@@ -51,5 +51,36 @@ function getPie(){
         }
     })
 }
-
-
+function getBox(){
+    $.ajax({
+        url:'/getbox/',
+        dataType: 'html',
+        cache: false,
+        success: function(msg){
+            $('#box').empty()
+            $('#box').html('<img src="data:image/png;base64,'+msg+'">')
+        }
+    })
+}
+function getScatterplot(){
+    $.ajax({
+        url:'/getscatterplot/',
+        dataType: 'html',
+        cache: false,
+        success: function(msg){
+            $('#box').empty()
+            $('#box').html('<img src="data:image/png;base64,'+msg+'">')
+        }
+    })
+}
+function getScatterplot_em(){
+    $.ajax({
+        url:'/getscatterplot_em/',
+        dataType: 'html',
+        cache: false,
+        success: function(msg){
+            $('#box').empty()
+            $('#box').html('<img src="data:image/png;base64,'+msg+'">')
+        }
+    })
+}

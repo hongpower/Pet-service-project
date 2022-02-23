@@ -130,7 +130,8 @@ def score(request):
 
 def getBargraph(request):
     file_name = request.GET['business_name']
-    b64 = drawbargraph(file_name)
+    user_loc = request.GET['user_loc']
+    b64 = drawbargraph(file_name, user_loc)
     return HttpResponse(b64)
 
 # 내 위치 찾기

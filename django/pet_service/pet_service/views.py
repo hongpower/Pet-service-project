@@ -16,7 +16,7 @@ import io
 import urllib, base64
 from io import BytesIO
 import base64
-from .graphs import createMap, drawbargraph, drawgraph, drawpie
+from .graphs import *
 from .map import Location_Map_Json2, Location_Medical_CSV2, Location_Park2, addr_to_lat_lon2, lat_lon_to_addr2, Map2
 
 warnings.filterwarnings('ignore')
@@ -126,7 +126,14 @@ def score(request):
     uri = urllib.parse.quote(graph)
     pie = drawpie()
     uri2 = urllib.parse.quote(pie)
-    return render(request, 'score.html', {'my_loc':my_loc, 'my_graph':uri, 'my_pie':uri2})
+    box = drawbox()
+    uri3 = urllib.parse.quote(box)
+    scatter = scatterplot()
+    uri4 = urllib.parse.quote(scatter)
+    scatter_em = scatter_line_em()
+    uri5 = urllib.parse.quote(scatter_em)
+    return render(request, 'score.html', {'my_loc':my_loc, 'my_graph':uri, 'my_pie':uri2, 'my_box':uri3,'my_scatter':uri4,
+                                          'my_scatter_line_em':uri5})
 
 def getBargraph(request):
     file_name = request.GET['business_name']

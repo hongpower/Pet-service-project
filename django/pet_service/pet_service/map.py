@@ -59,7 +59,7 @@ def Location_Map_Json2(input_file,input_gu):
         color = 'blue'
     center = addr_to_lat_lon2(input_gu)
     # center_loc = folium.Map(location=[center[0],center[1]],zoom_start=14)
-    center_loc = folium.Map(location=[center[0],center[1]],zoom_start=14)
+    center_loc = folium.Map(location=[center[0],center[1]],zoom_start=13)
     # print(total_json)
     gu_data = total_json[input_gu]
     # local = []

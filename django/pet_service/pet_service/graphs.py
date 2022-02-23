@@ -104,8 +104,8 @@ def createMap():
     geo_str = json.load(open(geo_path, encoding='utf-8'))
     df=df.set_index('id')
     my_loc = folium.Map(location=[37.58,127.0],
-                        zoom_start=11,
-                        tiles='cartodbpositron'
+                        zoom_start=12,
+                        tiles='cartodbdark_matter'
                        )
     chro = folium.Choropleth(geo_data=geo_str,
                         data=df['score'],
@@ -113,8 +113,8 @@ def createMap():
                         fill_color='YlGnBu',
                         key_on='feature.properties.name',
                         legend_Name='서울 구별 점수',
-                        fill_opacity=0.6,
-                        line_opacity=0.8,
+                        fill_opacity=0.8,
+                        line_opacity=0.9,
                         dash_array='5',
                         weight = 3,
                         ).add_to(my_loc)

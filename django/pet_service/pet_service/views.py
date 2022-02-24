@@ -152,3 +152,6 @@ def my_loc(request):
 ## Geo.html ; 지도까지 띄움
 def Geo(request):
     return render(request,'geo.html')
+
+def media(request):
+    return render(request, 'media.html')

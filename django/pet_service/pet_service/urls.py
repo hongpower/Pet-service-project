@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 from . import views
 
 urlpatterns = [
@@ -29,4 +31,7 @@ urlpatterns = [
     path('getbargraph/', views.getBargraph),
     path('Geo/',views.Geo),
     path("score/get_myloc/",views.my_loc),
+    path("media/", views.media),
 ]
+urlpatterns += \
+    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

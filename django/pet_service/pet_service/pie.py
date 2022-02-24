@@ -9,7 +9,7 @@ plt.rc('font', family='Malgun Gothic')
 def drawpie():
     ## 파이 그래프 생성 함수:
 
-    df = pd.read_csv("industry.csv", sep=",")
+    df = pd.read_csv("../data/industry.csv", sep=",")
     name = df['시설 분류'].tolist()
     industry = df['비율'].tolist()
     cnt_dict_industry = dict(zip(name, industry))
@@ -49,7 +49,7 @@ def drawpie():
     # string = base64.b64encode(buf.read())
     # return string
 
-    df2 = pd.read_csv("survey.csv", sep=",")
+    df2 = pd.read_csv("../data/survey.csv", sep=",")
     name2 = df2['시설 분류'].tolist()
     industry2 = df2['비율'].tolist()
     cnt_dict_industry2 = dict(zip(name2, industry2))

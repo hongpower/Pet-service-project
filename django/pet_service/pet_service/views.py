@@ -152,3 +152,61 @@ def my_loc(request):
 ## Geo.html ; 지도까지 띄움
 def Geo(request):
     return render(request,'geo.html')
+
+def menu(request):
+    # my_gu = request.GET['my_gu']
+
+    # score = load_score(gu)
+    return render(request,'2_page.html')
+
+def load_score(request):
+    my_gu = request.GET['my_gu']
+    with open(f'./data/whole_gu_analysis.json', 'r', encoding='utf-8') as f:
+        last_json = json.load(f)
+    # print(my_gu)
+    # print(last_json[my_gu][0])
+    get_score = last_json[my_gu][0]['점수']
+    # print(get_score)
+    return HttpResponse(get_score)
+
+def load_rank(request):
+    my_gu = request.GET['my_gu']
+    with open(f'./data/whole_gu_analysis.json', 'r', encoding='utf-8') as f:
+        last_json = json.load(f)
+    get_ranking = last_json[my_gu][1]['등수']
+    # print(get_ranking)
+    return HttpResponse(get_ranking)
+
+def click_bs(request):
+    my_gu = request.GET['my_gu']
+    bs = request.GET['bs']
+    with open(f'./data/whole_gu_analysis.json', 'r', encoding='utf-8') as f:
+        last_json = json.load(f)
+    cnt = 0
+    count =0
+    a = last_json[my_gu]
+    for i in a:
+        lst = list(i.keys())
+        if lst[0] == bs:
+            key = lst[0]
+            cnt = count
+            break
+        else:
+            print('모차즘')
+        count += 1
+    b = a[cnt]
+    # print(b[key][0])
+    if key == '반려동물교육센터':
+        if b[key][0] == 1:
+            print('우리 구에는 있어요!')
+            content = '우리 구에는 있어요!'
+            return HttpResponse(content)
+        else:
+            print('우리 구에는 없어요!')
+            content = '우리 구에는 없어요!'
+            return HttpResponse(content)
+    print(b[key][0])
+    print(f'{key}의 수는 {b[key][0]}개이며 서울시 평균의 {b[key][1]}배이다,10km면적당 {key}개수는 {b[key][2]}개이고 만가구당 우리 구의 {key} 개수는 {b[key][3]}개 이다')
+    # return HttpResponse(key, b[key][0],b[key][1],b[key][2],b[key][3])
+    # return HttpResponse(b)
+    return HttpResponse(f'{key}의 수는 {b[key][0]}개이며 서울시 평균의 {b[key][1]}배이다,10km면적당 {key}개수는 {b[key][2]}개이고 만가구당 우리 구의 {key} 개수는 {b[key][3]}개 이다')

@@ -29,4 +29,9 @@ urlpatterns = [
     path('getbargraph/', views.getBargraph),
     path('Geo/',views.Geo),
     path("score/get_myloc/",views.my_loc),
+    path('menu/',views.menu),
+    path('menu/get_myloc/',views.my_loc),
+    path('get_score/',views.load_score),
+    path('get_rank/',views.load_rank),
+    path('click_bs/',views.click_bs),
 ]

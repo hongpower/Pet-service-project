@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=edd9d5b2b096d9719de5b3ad246eea5b"></script>
+    <script>
+$(function(){
+    if (navigator.geolocation) {
+        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude, // 위도
+                lon = position.coords.longitude; // 경도
+            get_myloc(lat,lon);
+          });
+
+    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+        var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+            message = 'geolocation을 사용할수 없어요..'
+    }
+
+
+// 클릭 이벤트들
+
+    $('.click_bs').on('click',function(){
+        //alert($(this).text())
+        //alert($('h1').text())
+        bs = $(this).text()
+        my_gu = $('h1').text()
+        click_bs(my_gu,bs)
+    })
+    $('#score_sum').on('click',function(){
+        $('#talk').text('우리구 점수는 교육센터는 유/무에 따라 100/0점, 애완용품점은 0개(25점), 1개\
+        (50점), 2개(75점), 3개(100점), 놀이터는 0개(0점) 1(25점), 2(50점), 3(75점),\
+        4(100점), 동반가능 식당은 0~9개미만(20점), 10~19개미만(40점), 20~29개미만\
+        (60점), 30~39개미만(80점), 40~49개미만(100점)을 줌\
+        그 외에는 시설 평균 개수 대비 0~0.5배미만(25점), 0.5배~1배미만(50점), 1배~1.5 배미만(75점), 1.5배~2배(100점)을 기준으로 주었음\
+        오픈서베이에서 현재 반려견/반려묘를 키우는 사람 500명을 대상으로 실시한 (복수응답가능) 설문조사를 근거로 가중치를 주었으며,\
+        동반 카페, 펫 카페 , 동물교육센터 , 동물병원, 동물동반가능호텔, 동물미용업, 애완용품샵, 동물 유치원, 동물놀이터, 공원, 약국, 동반 가능 식당순으로0.0188, 0.0188, 0.0719, 0.0659, 0.1421, 0.3219, 0.0257, 0.0685, 0.1626, 0.0188, 0.0659, 0.0188의 가중치를 주었음')
+
+    })
+
+})
+function click_bs(my_gu,bs){
+    if(bs == '반려동물교육센터'){
+        $.ajax({
+            url:'/click_bs/',
+            data: {'my_gu':my_gu,'bs':bs},
+            dataType: 'html',
+            success: function(msg){
+                $('#container').text(msg)
+            }
+        })
+    }
+    else{
+         $.ajax({
+            url:'/click_bs/',
+            data: {'my_gu':my_gu,'bs':bs},
+            dataType: 'html',
+            success: function(msg){
+            // $('#container').text(msg1 + '의 수는 ' + msg2 + '개이며 서울시 평균의 ' + msg3+'배이다,10km면적당 '+ msg+'개수는'+msg4+'개이고 만가구당 우리 구의 '+msg+'개수는'+msg5)
+                $('#container').text(msg)
+            }
+        })
+    }
+}
+function get_myloc(lat, lon){
+    $.ajax({
+        url:'get_myloc',
+        data: {'lat':lat,'lon':lon},
+        dataType: 'html',
+        success: function(msg){
+            $('h1').append(msg)
+            get_score(msg)
+            get_rank(msg)
+        }
+    })
+}
+function get_score(my_gu){
+    $.ajax({
+        url:'/get_score/',
+        data: {'my_gu':my_gu},
+        dataType: 'html',
+        success: function(msg){
+            $('#load_score').text('우리구 점수는?  ' + msg + '/100점 ')
+        }
+    })
+}
+function get_rank(my_gu){
+    $.ajax({
+        url:'/get_rank/',
+        data: {'my_gu':my_gu},
+        dataType: 'html',
+        success: function(msg){
+            var div = ('#load_rank')
+            $('#load_rank').text('우리구 등수는?  ' + msg + '/25등 ')
+            if (msg <= 5){ $('#load_rank').append($('<span>').html('반려인들의 <b> DEREAM WORLD~</b>'))}
+            else if (5 < msg && msg <= 10 ){$('#load_rank').append($('<span>').html('우리구가 <b>어때서~</b>반려동물 키우기 딱좋은 곳인데~'))}
+            else if (10 < msg && msg<= 15 ){$('#load_rank').append($('<span>').html('평균 그 이상 그 이하도 아닌 ....'))}
+            else if (15 < msg && msg <= 20 ){$('#load_rank').append($('<span>').html('<b>반려인 서비스</b> 고민하시는 분들 여기에요 여기~!'))}
+            else if(20< msg && msg <= 25){$('#load_rank').append($('<span>').html('반려인을 위한 <b>서비스</b> 지금 도전하세요!'))}
+        }
+    })
+}
+
+    </script>
+</head>
+<body>
+    <p>
+        <b>Chrome 브라우저는 https 환경에서만 geolocation을 지원합니다.</b> 참고해주세요.
+    </p>
+    <h1 id="user_loc"></h1>
+    <div id ='load_score'></div>
+    <div id = 'load_rank'></div>
+
+    <div id = 'container'></div>
+
+    <span class = 'click_bs'>애견카페</span>
+    <span class = 'click_bs'>애견유치원</span>
+    <span class = 'click_bs'>반려동물교육센터</span>
+    <span class ='click_bs'>반려견놀이터</span>
+    <span class ='click_bs'>애견동반카페</span>
+    <span class ='click_bs'>애견미용실</span>
+    <span class ='click_bs'>애견호텔</span>
+    <span class ='click_bs'>애완용품점</span>
+    <span class ='click_bs'>애견동반식당</span>
+    <span class ='click_bs'>동물병원</span>
+    <span class ='click_bs'>동물약국</span>
+    <span class ='click_bs'>산책가능공원</span>
+    <br>
+    <span id = 'score_sum'>점수 합산 기준</span>
+    <div id = 'talk'>
+
+    </div>
+
+
+
+
+</body>
+</html>

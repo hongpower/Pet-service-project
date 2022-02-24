@@ -31,15 +31,12 @@ urlpatterns = [
     path('getbargraph/', views.getBargraph),
     path('Geo/',views.Geo),
     path("score/get_myloc/",views.my_loc),
-<<<<<<< HEAD
     path("media/", views.media),
-=======
     path('menu/',views.menu),
     path('menu/get_myloc/',views.my_loc),
     path('get_score/',views.load_score),
     path('get_rank/',views.load_rank),
     path('click_bs/',views.click_bs),
->>>>>>> 726383127c86b7113279d47190dde3d94a1d306e
 ]
 urlpatterns += \
     static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

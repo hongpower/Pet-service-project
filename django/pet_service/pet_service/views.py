@@ -155,6 +155,7 @@ def Geo(request):
 
 def media(request):
     return render(request, 'media.html')
+
 def menu(request):
     # my_gu = request.GET['my_gu']
 

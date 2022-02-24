@@ -89,9 +89,9 @@ colors = cm.rainbow(np.linspace(0, 1, numpoints))
 camera = Camera(plt.figure())
 cnt = 0
 new_year = [2016,2017,2019,2020]
-color_lst = ['#FF6A5A', '#FFBE59', '#CCCCFF', '#5EFF98', '#92EAFF', '#5B52FF', '#E12EFF', '#FF81B5', '#FF004E',
-             '#85DF9E', '#FFB04C', '#E0B9ED','#FF6A5C', '#FFBE59', '#CCCCFF', '#5EFF98', '#92EAFF', '#5B52FF', '#E12EFF', '#FF81B5', '#FF024E',
-             '#85DF9D', '#FFB08C', '#E0B9ED','#FF6A6D']
+color_lst = ['#FF6A5A', '#FFBE59', '#CCCCFF', '#5EFF98', '#92EACF', '#5B52FF', '#E12EFF', '#FF81B5', '#d27979',
+             '#ffccf2', '#e6ffcc', '#ffe0b3','#ff9999', '#e699ff', '#dfbf9f', '#99ffbb', '#99e6ff', '#a3a3c2', '#bf80ff', '#8080ff', '#80ffff',
+             '#ffff4d', '#85e085', '#a366ff','#80ffdf']
 cnt2 = -1
 for i in range(20):
     cnt2 += 1
@@ -104,12 +104,13 @@ for i in range(20):
     # print(tss)
     size=np.array(tss)/800
     # print(size)
-    plt.scatter(xss,yss,s=size,alpha=1, color=color_lst)
-    plt.text(14,31,new_year[cnt-1],fontsize=40,fontweight='bold',color='gray')
+    plt.scatter(xss,yss,s=300,alpha=1, color=color_lst, edgecolor='black')
+    plt.text(14,27,new_year[cnt-1],fontsize=40,fontweight='bold',color='gray')
     # plt.rc('font', size=8)
     plt.grid(True)
     # plt.xlim((19000, 1200000))
-    plt.ylim((10, 35))
+    plt.xlim((6,28))
+    plt.ylim((8, 33))
     # plt.xlim(())
     plt.xlabel('1인가구 비율(%)')
     plt.ylabel('반려인 비율(%)')
@@ -118,12 +119,12 @@ for i in range(20):
     # points += 0.1 * (np.random.random((2, numpoints)) - .5)
     # print(points)
     # plt.scatter(*points, c=colors, s=100)
-    # for li1, li2, li0 in zip(xss,yss,ass):
-    #     plt.text(li1,li2,li0)
+    for li1, li2, li0 in zip(xss,yss,ass):
+        plt.text(li1,li2,li0)
     # for _ in range(0x5000000):
     #     pass
     # sleep(5)
     camera.snap()
 anim = camera.animate(blit=True)
 plt.show()
-anim.save('scatter.gif')
+anim.save('scatter_what.gif')

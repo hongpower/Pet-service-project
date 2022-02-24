@@ -153,6 +153,9 @@ def my_loc(request):
 def Geo(request):
     return render(request,'geo.html')
 
+def media(request):
+    return render(request, 'media.html')
+
 def menu(request):
     # my_gu = request.GET['my_gu']
 
@@ -210,3 +213,4 @@ def click_bs(request):
     # return HttpResponse(key, b[key][0],b[key][1],b[key][2],b[key][3])
     # return HttpResponse(b)
     return HttpResponse(f'{key}의 수는 {b[key][0]}개이며 서울시 평균의 {b[key][1]}배이다,10km면적당 {key}개수는 {b[key][2]}개이고 만가구당 우리 구의 {key} 개수는 {b[key][3]}개 이다')
+

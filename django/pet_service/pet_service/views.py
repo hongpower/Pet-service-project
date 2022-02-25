@@ -130,10 +130,9 @@ def score(request):
     uri3 = urllib.parse.quote(box)
     scatter = scatterplot()
     uri4 = urllib.parse.quote(scatter)
-    scatter_em = scatter_line_em()
-    uri5 = urllib.parse.quote(scatter_em)
-    return render(request, 'score.html', {'my_loc':my_loc, 'my_graph':uri, 'my_pie':uri2, 'my_box':uri3,'my_scatter':uri4,
-                                          'my_scatter_line_em':uri5})
+    # scatter_em = scatter_line_em()
+    # uri5 = urllib.parse.quote(scatter_em)
+    return render(request, 'score.html', {'my_loc':my_loc, 'my_graph':uri, 'my_pie':uri2, 'my_box':uri3,'my_scatter':uri4,})
 
 def getBargraph(request):
     file_name = request.GET['business_name']

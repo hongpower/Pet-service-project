@@ -4,31 +4,42 @@
     <title>1조는 1인분 하조</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style_main.css' %}" type="text/css" media="screen">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/logoo.ico' %}"/>
+    <style>
+        @font-face {
+        src : url("../static/SDMiSaeng.ttf");
+        font-family: "mi"
+        }
+
+        *{
+        font-family: "mi";
+        }
+    </style>
     </head>
     <body>
         
         <div class="wrapper">
-            <h1 class="title">반려동물 시설 정보 서비스</h1>
+            <h1 class="title" style="font-size:50px; letter-spacing: 5px;">반려동물 시설 정보 서비스</h1>
             <ul class="main">
                 <li class="item nearby" style="background-color: antiquewhite"><a href="/index"  style="color: orangered">
                     <img class="item-cover" src="/static/img/img1.jpg">
                     <div class="item-contents">
-                        <h2>근처 서비스</h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to</p>
-                    </a></div>
+                        <h2 style="font-size: 40px; line-height: 30px;">내 주변 서비스 확인하기</h2>
+                        <p style="font-size: 20px;">찾고 싶은 자치구와 업종을 선택하여 정보를 얻을 수 있습니다.<br>지도에서 위치를, 아래 목록에서 가게이름, 별점, 주소를 확인할 수 있습니다.</p>
+                    </div></a>
                 </li>
-                <li class="item town"><a href="/menu" style="color: pink">
+                <li class="item town"><a href="/score" style="color: pink">
                     <img class="item-cover" src="/static/img/img1-2.jpg">
                     <div class="item-contents">
-                        <h2>자치구별 정보</h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to</p>
+                        <h2 style="font-size: 40px; line-height: 30px;">자치구별 정보</h2>
+                        <p style="font-size: 20px;">접속한 위치에 해당하는 자치구의 점수, <br>전체 자치구 중의 등수, 평균과 비교한 차이 등의 정보를 확인할 수 있습니다.</p>
                     </div> </a>
                 </li>
-                <li class="item topic"><a href="/score" style="color: yellow">
-                    <img class="item-cover" src="/static/img/us.jpg">
+                <li class="item topic"><a href="/menu" style="color: yellow">
+                    <img class="item-cover" src="/static/img/img02.jpg">
                     <div class="item-contents">
-                        <h2>About Topic</h2>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to</p>
+                        <h2 style="font-size: 40px; line-height: 30px;">About Topic</h2>
+                        <p style="font-size: 20px;">데이터를 활용해 산출한 점수를 지도에 표시하였습니다.<br>또한, 자치구별 시설들의 갯수 비교, 현황 등을 확인할 수 있습니다.</p>
                     </div>
                 </a></li>
                 </a>

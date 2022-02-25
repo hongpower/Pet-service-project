@@ -7,11 +7,42 @@
     <link rel="stylesheet" href="{% static 'style_index.css' %}" type="text/css" media="screen">
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'index.js' %}"></script>
-</head>
-<body>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/logoo.ico' %}"/>
+    <style>
 
-    <h1>내 주변 서비스 확인하기</h1>
-    <label class="custom-select">
+        @font-face {
+
+        src : url("../static/SDMiSaeng.ttf");
+        font-family: "mi"
+        }
+
+        *{
+        font-family: "mi";
+        font-size: 25px;
+        }
+
+    </style>
+</head>
+<body style="background-color: #f6f5ef; width: 100%;" >
+
+    <header>
+        <!--헤더-->
+        <div>
+            <h1><a href="#a"><img src="/static/img/logoo.png" alt="logo"  style="height:90px;"></a></h1>
+            <nav>
+                <ul>
+                    <li><a href="/index"><b style="font-size: 25px;">내 주변 서비스 확인하기</b></a></li>
+                    <li><a href="/score" style="font-size: 25px;"><b>자치구 별 정보</b></a></li>
+                    <li><a href="/menu" style="font-size: 25px;"><b>About Topic</b></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!--      헤더 넣음      -->
+
+    <h1 style="font-size: 60px;">내 주변 서비스 확인하기</h1>
+    <label class="custom-select" style="padding-bottom:10px;">
         <div id="wrapper">
             <select name="please" id="gu">
                 <option value="0">구 선택</option>

@@ -1,0 +1,46 @@
+a{   /* 링크의 밑줄 없애기 */ 
+    text-decoration-line: none;
+}
+
+
+ul{ /* 점 없애기, 들여쓰기 없애기*/
+    list-style: none;
+}
+
+
+
+header {
+    background: #111;/*#f6f5ef*/
+    height: 118px;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index:6;
+}
+header > div{
+    position: relative;
+    width: 54.5rem;
+    margin: 0 auto;
+}
+/*아래의 div를 float해놔서 배경색이 흰색으로 나옴
+--> 배경색 넣기 위해 :after 작성*/
+header > div:after {content: "";display: block;clear: both;}
+
+/* 로고 이미지 위아래 여백 padding*/
+header > div h1 {float : left; padding: 0 0 24px;}
+
+/*네이게이션 메뉴 위치 내리는 여백 padding */ 
+header > div nav { float: right; padding: 2.65rem 0 0 0;}
+header > div nav > ul > li {float: left;position: relative;line-height: 0.8rem;}
+
+header > div nav > ul > li > a {
+    display: block;   /*위아래 padding때문에 좌우여백이 안들어가지므로 */
+    padding : 0.7rem 1.25rem 0;  /*메뉴마다 좌우 여백 */
+    height : 2.6rem;    /*메뉴 아래 영역까지 포함시키도록 */
+    font-size: 15px;
+    color: #333333;
+    line-height: 100%;
+}
+

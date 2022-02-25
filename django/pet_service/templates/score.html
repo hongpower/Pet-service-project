@@ -7,69 +7,139 @@
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=edd9d5b2b096d9719de5b3ad246eea5b"></script>
     <script src="{% static 'score.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'score.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/logoo.ico' %}"/>
+    <style>
+
+        @font-face {
+
+        src : url("../static/SDMiSaeng.ttf");
+        font-family: "mi"
+        }
+
+        *{
+        font-family: "mi";
+        font-size: 25px;
+        }
+
+        #mapgraph {
+            width: 68%;
+            position: absolute;
+            left: 50%;
+            top: 57.5%;
+            transform: translate(-50%,-50%);
+        }
+
+        span{
+            margin:0.34em;
+            padding-left:0.34em;
+            padding-right:0.34em;
+        }
+
+        body{
+            font-size:15px;
+        }
+
+        .user_loc{
+            color:white;
+        }
+    </style>
 </head>
 <body>
-    <div>
-        <p>
-            <b>Chrome 브라우저는 https 환경에서만 geolocation을 지원합니다.</b> 참고해주세요.
-        </p>
-        <h1 id="user_loc"></h1>
-    </div>
-    <div class="mapgraph">
-        {{ my_loc|safe }}
-    </div>
-    <div class="container">
-    </div>
-    <span id="pet_garden" class="bs">pet_garden</span>
-    <br>
-    <span id="pet_cafe" class="bs">pet_cafe</span>
-    <br>
-    <span id="pet_city_park" class="bs">pet_city_park</span>
-    <br>
-<!--    <span id="pet_education_center" class="bs">pet_education_center</span>-->
-<!--    <br>-->
-    <span id="pet_hospital" class="bs">pet_hospital</span>
-    <br>
-    <span id="pet_hotel" class="bs">pet_hotel</span>
-    <br>
-    <span id="pet_medical" class="bs">pet_medical</span>
-    <br>
-    <span id="pet_playground" class="bs">pet_playground</span>
-    <br>
-    <span id="pet_salon" class="bs">pet_salon</span>
-    <br>
-    <span id="pet_store" class="bs">pet_store</span>
-    <br>
-    <span id="pet_together_cafe" class="bs">pet_together_cafe</span>
-    <br>
-    <span id="pet_together_diner" class="bs">pet_together_diner</span>
+     <div class="containers">
+        <div class="section">
+            <div class="content">
+                <header>
+                    <!--헤더-->
+                    <div>
+                        <h1><a href="{% static '../' %}"><img src="/static/img/logoo.png" alt="logo" style="height:90px;"></a></h1>
+                        <nav>
+                            <ul>
+                                <li><a href="/index"><b>내 주변 서비스 확인하기</b></a></li>
+                                <li><a href="/score"><b>자치구 별 정보</b></a></li>
+                                <li><a href="/menu"><b>About Topic</b></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </header>
 
-    <div id="pie">
-        <img src="data:image/png;base64,{{ my_pie }}">
-    </div>
+                <div>
+                    <p>
+                        <b>Chrome 브라우저는 https 환경에서만 geolocation을 지원합니다.</b> 참고해주세요.
+                    </p>
+                    <h1 id="user_loc" style="color: hotpink;"></h1>
+                </div>
+                <div class="mapgraph" id="mapgraph" >
+                    {{ my_loc|safe }}
+                </div>
 
-    <div id="folliummap">
-        {% include "folliummap.html" %}
-    </div>
+            </div>
+        </div>
 
-    <div>
-        <img src="data:image/png;base64,{{ my_graph }}">
-    </div>
+        <div class="section">
+            <div class="content">
+                <div class="container" id="container" style="text-align:center;transform:translateY(15%);">
+                </div>
 
-    <div id = 'box'>
-        <img src="data:image/png;base64,{{ my_box }}">
-    </div>
+                <div id="graph_group" style="text-align:center; position:absolute; top:67%; left:50%; transform: translate(-50%,0);">
+                    <span id="pet_garden" class="bs">pet_garden</span>
+                    <span id="pet_cafe" class="bs">pet_cafe</span>
+                    <span id="pet_city_park" class="bs">pet_city_park</span>
+                    <br>
 
-    <div id = 'scatter'>
-        <img src="data:image/png;base64,{{ my_scatter }}">
-    </div>
+                    <span id="pet_hospital" class="bs">pet_hospital</span>
+                    <span id="pet_hotel" class="bs">pet_hotel</span>
+                    <br>
+                    <span id="pet_medical" class="bs">pet_medical</span>
+                    <span id="pet_playground" class="bs">pet_playground</span>
+                    <span id="pet_salon" class="bs">pet_salon</span>
+                    <br>
+                    <span id="pet_store" class="bs">pet_store</span>
+                    <span id="pet_together_cafe" class="bs">pet_together_cafe</span>
+                    <span id="pet_together_diner" class="bs">pet_together_diner</span>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="content">
+                <div id = 'scatter_line_em' style="position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
+                    <img src="/media/scatter.gif">
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div id="pie">
+                <img src="data:image/png;base64,{{ my_pie }}" style="height:95%;position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
+            </div>
+        </div>
 
-    <div id = 'scatter_line_em'>
-        <img src="data:image/png;base64,{{ my_scatter_line_em }}">
-    </div>
+        <div class="section">
+            <div class="content">
+                <div id="folliummap">
+                    {% include "folliummap.html" %}
+                </div>
 
-    <div>
-        <img src="/media/scatter.gif">
+                <div>
+                    <img src="data:image/png;base64,{{ my_graph }}"style="height:95%;position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="content">
+                <div id = 'box'>
+                    <img src="data:image/png;base64,{{ my_box }}" style="width:100%;position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="content">
+                <div id = 'scatter'>
+                    <img src="data:image/png;base64,{{ my_scatter }}" style="height:100%;position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);">
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

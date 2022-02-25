@@ -99,49 +99,153 @@ function get_rank(my_gu){
         success: function(msg){
             var div = ('#load_rank')
             $('#load_rank').text('우리구 등수는?  ' + msg + '/25등 ')
-            if (msg <= 5){ $('#load_rank').append($('<span>').html('반려인들의 <b> DEREAM WORLD~</b><img src="../static/img/stamp_1.png" alt="">'))}
-            else if (5 < msg && msg <= 10 ){$('#load_rank').append($('<span>').html('우리구가 <b>어때서~</b>반려동물 키우기 딱좋은 곳인데~ <img src="../static/img/stamp_2.png" alt="">'))}
-            else if (10 < msg && msg<= 15 ){$('#load_rank').append($('<span>').html('평균 그 이상 그 이하도 아닌 .... <img src="../static/img/stamp_3.png" alt="">'))}
-            else if (15 < msg && msg <= 20 ){$('#load_rank').append($('<span>').html('<b>반려인 서비스</b> 고민하시는 분들 여기에요 여기~! <img src="../static/img/stamp_4.png" alt="">'))}
-            else if(20< msg && msg <= 25){$('#load_rank').append($('<span>').html('반려인을 위한 <b>서비스</b> 지금 도전하세요! <img src="../static/img/stamp_5.png" alt="">'))}
+            if (msg <= 5){ $('#load_rank').append($('<span>').html('     반려인들의 <b> DEREAM WORLD~</b><img src="../static/img/stamp_1.png" alt="">'))}
+            else if (5 < msg && msg <= 10 ){$('#load_rank').append($('<span>').html('     우리구가 <b>어때서~</b>반려동물 키우기 딱좋은 곳인데~ <img src="../static/img/stamp_2.png" alt="">'))}
+            else if (10 < msg && msg<= 15 ){$('#load_rank').append($('<span>').html('     평균 그 이상 그 이하도 아닌 .... <img src="../static/img/stamp_3.png" alt="">'))}
+            else if (15 < msg && msg <= 20 ){$('#load_rank').append($('<span>').html('     <b>반려인 서비스</b> 고민하시는 분들 여기에요 여기~! <img src="../static/img/stamp_4.png" alt="">'))}
+            else if(20< msg && msg <= 25){$('#load_rank').append($('<span>').html('     반려인을 위한 <b>서비스</b> 지금 도전하세요! <img src="../static/img/stamp_5.png" alt="">'))}
                 //$('#img').html('<img src="../static/img/stamp_5.png" alt="">')}
         }
     })
 }
 
     </script>
+    <style>
+
+        @font-face {
+
+        src : url("../static/SDMiSaeng.ttf");
+        font-family: "mi"
+        }
+
+        *{
+        font-family: "mi";
+        }
+
+        div>span{
+            margin: 0.5%;
+        }
+
+        .click_bs{
+            display: inline-block;
+            min-width: 150px;
+            height: 38px;
+            line-height: 34px;
+            font-size: 25px;
+            color: #111;
+            border: 2px solid #111;
+            border-radius: 5px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        a{   /* 링크의 밑줄 없애기 */
+            text-decoration-line: none;
+        }
+
+
+        ul{ /* 점 없애기, 들여쓰기 없애기*/
+            list-style: none;
+        }
+
+        header {
+            background: #111;/*#f6f5ef*/
+            height: 118px;
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index:6;
+        }
+        header > div{
+            position: relative;
+            width: 54.5rem;
+            margin: 0 auto;
+        }
+        /*아래의 div를 float해놔서 배경색이 흰색으로 나옴
+        --> 배경색 넣기 위해 :after 작성*/
+        header > div:after {content: "";display: block;clear: both;}
+
+        /* 로고 이미지 위아래 여백 padding*/
+        header > div>h2 {float : left; padding: 0 0 0px;}
+
+        /*네이게이션 메뉴 위치 내리는 여백 padding */
+        header > div nav { float: right; padding: 2.65rem 0 0 0; z-index: 500;}
+        header > div nav > ul > li {float: left;position: relative;line-height: 0.8rem;}
+
+        header > div nav > ul > li > a {
+            display: block;   /*위아래 padding때문에 좌우여백이 안들어가지므로 */
+            padding : 0.7rem 1.25rem 0;  /*메뉴마다 좌우 여백 */
+            height : 2.6rem;    /*메뉴 아래 영역까지 포함시키도록 */
+            font-size: 25px;
+            color: white;
+            line-height: 100%;
+        }
+
+        body>h1{
+            color:white; font-size: 50px;position: relative;
+            left:25%;
+            z-index: 100;
+            font-weight: 100;
+        }
+    </style>
 </head>
-<body>
-    <p>
-        <b>Chrome 브라우저는 https 환경에서만 geolocation을 지원합니다.</b> 참고해주세요.
-    </p>
-    <h1 id="user_loc"></h1>
-    <div id ='load_score'></div>
-    <div id = 'load_rank'></div>
-    
+<body style="background-color: white;">
+    <header>
+        <!--헤더-->
+        <div id="header">
+            <h2><a href="{% static '../' %}"><img src="/static/img/logoo.png" alt="logo" style="height:90px;"></a></h2>
+            <nav>
+                <ul>
+                    <li><a href="/index"><b>내 주변 서비스 확인하기</b></a></li>
+                    <li><a href="/score"><b>자치구 별 정보</b></a></li>
+                    <li><a href="/menu"><b>About Topic</b></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <div id = 'container'></div>
+    <!--      헤더 넣음      -->
 
-    <span class = 'click_bs'>애견카페</span>
-    <span class = 'click_bs'>애견유치원</span>
-    <span class = 'click_bs'>반려동물교육센터</span>
-    <span class ='click_bs'>반려견놀이터</span>
-    <span class ='click_bs'>애견동반카페</span>
-    <span class ='click_bs'>애견미용실</span>
-    <span class ='click_bs'>애견호텔</span>
-    <span class ='click_bs'>애완용품점</span>
-    <span class ='click_bs'>애견동반식당</span>
-    <span class ='click_bs'>동물병원</span>
-    <span class ='click_bs'>동물약국</span>
-    <span class ='click_bs'>산책가능공원</span>
+    <h1 id="user_loc" style="color:#f7f2da;text-align: center; font-size: 50px; width: 200px;"></h1>
     <br>
-    <span id = 'score_sum'>점수 합산 기준</span>
-    <div id = 'talk'>
+    <div id ='load_score' style="padding-left: 17%; font-size: 40px;"></div>
+    <br>
+    <div id = 'load_rank' style="padding-left: 17%;  font-size: 40px;"></div>
+    <br>
+    <br>
 
+    <div style="text-align: center;">
+        <span class = 'click_bs'>애견카페</span>
+        <span class = 'click_bs'>애견유치원</span>
+        <span class = 'click_bs'>반려동물교육센터</span>
+        <span class ='click_bs'>반려견놀이터</span>
+        <br>
+        <span class ='click_bs'>애견동반카페</span>
+        <span class ='click_bs'>애견미용실</span>
+        <span class ='click_bs'>애견호텔</span>
+        <span class ='click_bs'>애완용품점</span>
+        <br>
+        <span class ='click_bs'>애견동반식당</span>
+        <span class ='click_bs'>동물병원</span>
+        <span class ='click_bs'>동물약국</span>
+        <span class ='click_bs'>산책가능공원</span>
     </div>
+    <br>
+    <br>
+    <div id = 'container' style="padding-left: 14%; font-weight: 800; font-size: 35px; width: 70%;"></div>
 
-
-
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <span id = 'score_sum'  style="padding-left: 12%; font-size: 25px;">점수 합산 기준 : </span>
+    <div  style="position:absolute; width: 70%; left: 50%; transform: translateX(-50%); padding-top: 10px;">
+        <div id = 'talk' style="line-height: 1.7em;font-size: 20px;">
+        </div>
+    </div>
+</body>
+</html>
 </body>
 </html>

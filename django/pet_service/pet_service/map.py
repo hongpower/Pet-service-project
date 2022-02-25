@@ -98,7 +98,8 @@ def Location_Medical_CSV2(input_file ,input_gu):
             folium.Marker([local[0], local[1]], popup=folium.Popup(hosp_name[0], max_width=400),
                           icon=folium.Icon(icon=icon,prefix='fa',color='red')).add_to(center_loc)
         else:
-            print(i)
+            pass
+            # print(i)
     # center_loc.save('pratice.html')
     return center_loc
 
@@ -120,7 +121,7 @@ def Location_Park2(input_file,input_gu):
     # print(city_park[['위도','경도']])
 
     for i in park_name:
-        print(i)
+        # print(i)
         park_etc = city_park[city_park.공원명 == i]
         park_addrss = park_etc.소재지지번주소.values[0]
         # print(park_addrss)

@@ -107,7 +107,7 @@ def createMap():
     df=df.set_index('id')
     my_loc = folium.Map(location=[37.58,127.0],
                         zoom_start=12,
-                        tiles='cartodbdark_matter'
+                        tiles='cartodbpositron'
                        )
     chro = folium.Choropleth(geo_data=geo_str,
                         data=df['score'],
@@ -140,9 +140,9 @@ def drawgraph():
     fig, ax = plt.subplots()
     width = 0.35
     # ax = plt.bar(x=local, height=cafe, color='r', alpha=0.3, label='cafe', stacked=True)
-    ax.bar(x=local, height=cafe, color='r', alpha=0.3, label='cafe')
-    ax.bar(x=local, height=together, bottom=cafe, color='b', alpha=0.3, label='together_cafeeee')
-    ax.bar(x=local, height=diner, bottom=cafe+together, color='g', alpha=0.3, label='diner')
+    ax.bar(x=local, height=cafe, color='r', alpha=0.3, label='애견카페')
+    ax.bar(x=local, height=together, bottom=cafe, color='b', alpha=0.3, label='동반가능 카페')
+    ax.bar(x=local, height=diner, bottom=cafe+together, color='g', alpha=0.3, label='동반가능 식당')
 
     plt.legend(loc='upper right')
     plt.xticks(rotation=45)

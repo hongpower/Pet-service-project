@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load static %}
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=edd9d5b2b096d9719de5b3ad246eea5b"></script>
     <script>
@@ -26,9 +27,11 @@ $(function(){
     $('.click_bs').on('click',function(){
         //alert($(this).text())
         //alert($('h1').text())
+        $('.click_bs').css('background-color','')
         bs = $(this).text()
         my_gu = $('h1').text()
         click_bs(my_gu,bs)
+        $(this).css('background-color','skyblue')
     })
     $('#score_sum').on('click',function(){
         $('#talk').text('우리구 점수는 교육센터는 유/무에 따라 100/0점, 애완용품점은 0개(25점), 1개\
@@ -50,6 +53,7 @@ function click_bs(my_gu,bs){
             dataType: 'html',
             success: function(msg){
                 $('#container').text(msg)
+                //$('.click_bs').css('background-color','skyblue')
             }
         })
     }
@@ -95,11 +99,12 @@ function get_rank(my_gu){
         success: function(msg){
             var div = ('#load_rank')
             $('#load_rank').text('우리구 등수는?  ' + msg + '/25등 ')
-            if (msg <= 5){ $('#load_rank').append($('<span>').html('반려인들의 <b> DEREAM WORLD~</b>'))}
-            else if (5 < msg && msg <= 10 ){$('#load_rank').append($('<span>').html('우리구가 <b>어때서~</b>반려동물 키우기 딱좋은 곳인데~'))}
-            else if (10 < msg && msg<= 15 ){$('#load_rank').append($('<span>').html('평균 그 이상 그 이하도 아닌 ....'))}
-            else if (15 < msg && msg <= 20 ){$('#load_rank').append($('<span>').html('<b>반려인 서비스</b> 고민하시는 분들 여기에요 여기~!'))}
-            else if(20< msg && msg <= 25){$('#load_rank').append($('<span>').html('반려인을 위한 <b>서비스</b> 지금 도전하세요!'))}
+            if (msg <= 5){ $('#load_rank').append($('<span>').html('반려인들의 <b> DEREAM WORLD~</b><img src="../static/img/stamp_1.png" alt="">'))}
+            else if (5 < msg && msg <= 10 ){$('#load_rank').append($('<span>').html('우리구가 <b>어때서~</b>반려동물 키우기 딱좋은 곳인데~ <img src="../static/img/stamp_2.png" alt="">'))}
+            else if (10 < msg && msg<= 15 ){$('#load_rank').append($('<span>').html('평균 그 이상 그 이하도 아닌 .... <img src="../static/img/stamp_3.png" alt="">'))}
+            else if (15 < msg && msg <= 20 ){$('#load_rank').append($('<span>').html('<b>반려인 서비스</b> 고민하시는 분들 여기에요 여기~! <img src="../static/img/stamp_4.png" alt="">'))}
+            else if(20< msg && msg <= 25){$('#load_rank').append($('<span>').html('반려인을 위한 <b>서비스</b> 지금 도전하세요! <img src="../static/img/stamp_5.png" alt="">'))}
+                //$('#img').html('<img src="../static/img/stamp_5.png" alt="">')}
         }
     })
 }
@@ -113,6 +118,7 @@ function get_rank(my_gu){
     <h1 id="user_loc"></h1>
     <div id ='load_score'></div>
     <div id = 'load_rank'></div>
+    
 
     <div id = 'container'></div>
 
